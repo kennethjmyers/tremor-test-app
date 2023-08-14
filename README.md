@@ -1,3 +1,9 @@
+# Tremor Cal-Heatmap test app
+
+I made this to test out making a [Tremor dashboard](https://www.tremor.so/) with a [Cal-Heatmap](https://cal-heatmap.com/), a plot type that is not provided by Tremor. Thanks to @joshlacal for helping me get this working.
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
