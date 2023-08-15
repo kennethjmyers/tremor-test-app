@@ -78,8 +78,8 @@ export default function Home() {
   // JSX to render the component
   return (
     <div className="sm:p-10">
-      <Grid numItems={1} numItemsSm={2} numItemsLg={4} className="gap-2">
-        <Col numColSpan={1} numColSpanLg={2}>
+      <Grid numItems={1} numItemsSm={2} numItemsMd={2} numItemsLg={4} className="gap-2">
+        <Col numColSpan={1} numColSpanSm={2} numColSpanMd={2} numColSpanLg={2}>
           <Card>
             <Flex className="mt-4">
               <div style={{ display: 'inline-block' }}>
@@ -90,8 +90,8 @@ export default function Home() {
             </Flex>
           </Card>
         </Col>
-        <Col numColSpan={1} numColSpanLg={1}>
-        </Col>
+        {/* <Col numColSpan={1} numColSpanLg={1}>
+        </Col> */}
       </Grid>
     </div>
   );
