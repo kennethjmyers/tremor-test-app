@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import React, { useEffect, useRef } from 'react';
 import process from 'process';
-import { Card, Text, Metric, Flex, ProgressBar } from "@tremor/react";
+import { Card, Text, Metric, Flex, ProgressBar, Grid, Col } from "@tremor/react";
 
 console.log(process.env)
 
@@ -77,14 +77,22 @@ export default function Home() {
 
   // JSX to render the component
   return (
-    <div>
-      <Card>
-        <Flex className="mt-4">
-          {/* Reference to the div element where the heatmap will be rendered */}
-          <div ref={calHeatmapRef} id="cal-heatmap"></div>
-          <div id="ex-wind-legend" style={{ float: 'right' }}></div>
-        </Flex>
-      </Card>
+    <div className="sm:p-10">
+      <Grid numItems={1} numItemsSm={2} numItemsLg={4} className="gap-2">
+        <Col numColSpan={1} numColSpanLg={2}>
+          <Card>
+            <Flex className="mt-4">
+              <div style={{ display: 'inline-block' }}>
+                {/* Reference to the div element where the heatmap will be rendered */}
+                <div ref={calHeatmapRef} id="cal-heatmap"></div>
+                <div id="ex-wind-legend" style={{ float: 'right' }}></div>
+              </div>
+            </Flex>
+          </Card>
+        </Col>
+        <Col numColSpan={1} numColSpanLg={1}>
+        </Col>
+      </Grid>
     </div>
   );
   // return (
