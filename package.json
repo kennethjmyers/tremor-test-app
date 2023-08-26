@@ -9,13 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@observablehq/plot": "^0.6.10",
     "@tremor/react": "^3.6.1",
     "@types/cal-heatmap": "^3.5.36",
+    "@types/d3": "^7.4.0",
     "@types/node": "20.4.10",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
     "cal-heatmap": "^4.2.3",
+    "d3": "^7.8.5",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.13",
     "next": "13.4.13",

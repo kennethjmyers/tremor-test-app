@@ -1,92 +1,37 @@
 'use client';
-import Image from 'next/image'
-import React, { useEffect, useRef } from 'react';
-import process from 'process';
+import React from 'react';
+// import process from 'process';
 import { Card, Text, Metric, Flex, ProgressBar, Grid, Col } from "@tremor/react";
-
-console.log(process.env)
-
-// Importing the CalHeatmap library and its CSS
-import CalHeatmap from 'cal-heatmap';
-import Tooltip from 'cal-heatmap/plugins/Tooltip';
-import Legend from 'cal-heatmap/plugins/Legend';
-import 'cal-heatmap/cal-heatmap.css';
+import DailyPosts from '../plots/dailyPosts';
+import PostingTime from '../plots/postingTime';
+import PostCount from '../plots/postCount';
 
 export default function Home() {
-  // useRef hook to create a reference to the DOM element that will contain the heatmap
-  const calHeatmapRef = useRef(null);
-
-  // useEffect hook to run code after the component is mounted
-  useEffect(() => {
-    // Check if the ref is defined
-    if (calHeatmapRef.current) {
-      // @ts-ignore is used to bypass TypeScript checks for CalHeatmap
-      // Instantiate CalHeatmap
-      const cal = new CalHeatmap();
-      // Paint the heatmap with the given options
-      cal.paint({
-        itemSelector: calHeatmapRef.current,
-        // Add other options as needed
-        data: {
-          source: '/data/seattle-weather.csv',
-          type: 'csv',
-          x: 'date',
-          y: d => +d['wind'],
-          groupY: 'max',
-        },
-        date: { start: new Date('2012-01-01') },
-        range: 8,
-        scale: {
-          color: {
-            type: 'quantize',
-            scheme: 'Oranges',
-            domain: [0, 1, 2, 3, 4, 5, 6, 7],
-          },
-        },
-        domain: {
-          type: 'month',
-        },
-        subDomain: { type: 'day', radius: 2 },
-      },
-      [
-        [
-          Tooltip,
-          {
-            text: function (date, value, dayjsDate) {
-              return (
-                (value ? value + 'km/h' : 'No data') +
-                ' on ' +
-                dayjsDate.format('LL')
-              );
-            },
-          },
-        ],
-        [
-          Legend,
-          {
-            tickSize: 0,
-            width: 100,
-            itemSelector: '#ex-wind-legend',
-            label: 'Seattle wind (km/h)',
-          },
-        ],
-      ]
-    );
-  }
-  }, []);
+  const userName: string = 'kennygesserit.bsky.social'
+  const dataFile: string = '/data/post_history.csv'
+  const startDate: Date = new Date('2023-05-15')
+  const daysLookback: number = 90
+  const monthsRange: number = Math.floor(daysLookback/30)+1
 
   // JSX to render the component
   return (
     <div className="sm:p-10">
       <Grid numItems={1} numItemsSm={2} numItemsMd={2} numItemsLg={4} className="gap-2">
-        <Col numColSpan={1} numColSpanSm={2} numColSpanMd={2} numColSpanLg={2}>
+        <Col numColSpan={1} numColSpanSm={2} numColSpanMd={2} numColSpanLg={2} className="gap-2">
+          <Card>
+            <Text>{userName}</Text>
+            <PostCount dataFile={dataFile} />
+          </Card>
           <Card>
             <Flex className="mt-4">
-              <div style={{ display: 'inline-block' }}>
-                {/* Reference to the div element where the heatmap will be rendered */}
-                <div ref={calHeatmapRef} id="cal-heatmap"></div>
-                <div id="ex-wind-legend" style={{ float: 'right' }}></div>
-              </div>
+              <DailyPosts dataFile={dataFile} startDate={startDate} monthsRange={monthsRange}/>
+            </Flex>
+          </Card>
+        </Col>
+        <Col numColSpan={1} numColSpanSm={2} numColSpanMd={2} numColSpanLg={2}>
+          <Card>
+            <Flex className='mt-4'>
+              <PostingTime dataFile={dataFile} />
             </Flex>
           </Card>
         </Col>
