@@ -1,10 +1,12 @@
 'use client';
 import React from 'react';
 // import process from 'process';
-import { Card, Text, Metric, Flex, ProgressBar, Grid, Col } from "@tremor/react";
-import DailyPosts from '../plots/dailyPosts';
-import PostingTime from '../plots/postingTime';
-import PostCount from '../plots/postCount';
+import { Card, Text, Title, Metric, Flex, ProgressBar, Grid, Col } from "@tremor/react";
+import PostCalHeatMap from '../plots/postCalHeatMap';
+import PostTimeHeatMap from '../plots/postTimeHeatMap';
+import PostLinePlot from '../plots/postLinePlot';
+import PostMetrics from '../plots/postMetrics';
+
 
 export default function Home() {
   const userName: string = 'kennygesserit.bsky.social'
@@ -19,19 +21,23 @@ export default function Home() {
       <Grid numItems={1} numItemsSm={2} numItemsMd={2} numItemsLg={4} className="gap-2">
         <Col numColSpan={1} numColSpanSm={2} numColSpanMd={2} numColSpanLg={2} className="gap-2">
           <Card>
-            <Text>{userName}</Text>
-            <PostCount dataFile={dataFile} />
-          </Card>
-          <Card>
-            <Flex className="mt-4">
-              <DailyPosts dataFile={dataFile} startDate={startDate} monthsRange={monthsRange}/>
+            <Title>{userName}</Title>
+            <PostMetrics dataFile={dataFile} />
+            <Card className="mt-4">
+              <Flex >
+                <PostLinePlot dataFile={dataFile} />
+              </Flex>
+            </Card>
+            <Flex justifyContent="center" className="mt-4">
+              <PostCalHeatMap
+             dataFile={dataFile} startDate={startDate} monthsRange={monthsRange}/>
             </Flex>
           </Card>
         </Col>
         <Col numColSpan={1} numColSpanSm={2} numColSpanMd={2} numColSpanLg={2}>
           <Card>
             <Flex className='mt-4'>
-              <PostingTime dataFile={dataFile} />
+              <PostTimeHeatMap dataFile={dataFile} />
             </Flex>
           </Card>
         </Col>

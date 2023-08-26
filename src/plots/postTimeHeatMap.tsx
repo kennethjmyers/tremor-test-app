@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState} from 'react';
 import * as Plot from "@observablehq/plot";
 import * as d3 from 'd3';
+import './plotsOverride.css';
+
 
 type Props = {
   dataFile: string,
@@ -16,7 +18,7 @@ var dayNames = [
   'Saturday'
 ];
 
-export default function PostingTime(props: Props) {
+export default function PostTimeHeatMap(props: Props) {
   const containerRef = useRef<HTMLInputElement>(null);
   const [data, setData] = useState<d3.DSVParsedArray<object>>();
 
@@ -29,7 +31,7 @@ export default function PostingTime(props: Props) {
     const plot = Plot.plot({
       padding: 0,
       grid: true,
-      x: {axis: "top", label: "Day of Week"},
+      x: {axis: "top", label: "Day of Week", domain: dayNames},
       y: {label: "Hour of Day"},
       color: {type: "linear", scheme: "Blues"},
       marks: [
@@ -59,12 +61,4 @@ export default function PostingTime(props: Props) {
   return (
     <div ref={containerRef} />
   )
-
-  // return (
-  //   <div style={{ display: 'inline-block' }}>
-  //     {/* Reference to the div element where the heatmap will be rendered */}
-  //     <div ref={calHeatmapRef} id="cal-heatmap"></div>
-  //     <div id="cal-heatmap-legend" style={{ float: 'right' }}></div>
-  //   </div>
-  // )
 }

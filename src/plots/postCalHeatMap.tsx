@@ -11,7 +11,7 @@ type Props = {
   monthsRange: number
 }
 
-export default function DailyPosts(props: Props) {
+export default function PostCalHeatMap(props: Props) {
     // useRef hook to create a reference to the DOM element that will contain the heatmap
     const calHeatmapRef = useRef(null);
     
