@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as Plot from "@observablehq/plot";
 import * as d3 from 'd3';
 import './plotsOverride.css';
@@ -22,13 +22,13 @@ export default function PostLinePlot(props: Props) {
       padding: 0,
       grid: true,
       height: 300,
-      x: {axis: "bottom", label: ""},
-      y: {label: "Posts"},
-      color: {type: "linear", scheme: "Blues"},
+      x: { axis: "bottom", label: "" },
+      y: { label: "Posts" },
+      color: { type: "linear", scheme: "Blues" },
       marks: [
-        Plot.lineY(
-          data, 
-          Plot.binX({y: "count", filter: null}, {x: (d) => (new Date(d.date+' '+d.time)), })),
+        Plot.areaY(data, Plot.binX({ y: "count", filter: null }, { x: (d) => (new Date(d.date + ' ' + d.time)), fill: "blue", fillOpacity: 0.2})),
+        Plot.lineY(data, Plot.binX({ y: "count", filter: null }, { x: (d) => (new Date(d.date + ' ' + d.time)), })),
+        Plot.ruleY([0]),
       ]
     });
     containerRef.current.append(plot);

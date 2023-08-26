@@ -10,8 +10,8 @@ type Props = {
 type dataRow = {
   date: string,
   time: string,
-  uri: string
-  repost: number
+  uri: string,
+  category: string
 }
 
 export default function PostMetrics(props: Props) {
@@ -20,14 +20,15 @@ export default function PostMetrics(props: Props) {
 
   useEffect(() => {
     d3.csv(props.dataFile, d3.autoType).then((fileData) => {
-      setData(fileData)});
+      setData(fileData as d3.DSVParsedArray<dataRow>)});
   }, [props.dataFile]);
 
   return (
     <div>
       <Flex>
-      <Metric>Posts: {data? data.length : ""}</Metric>
-      <Metric>Reposts: {data? data.map((row) => row.repost).reduce((a, b) => a + b, 0) : 0}</Metric>
+      <Metric>Posts: {data? data.length : 0}</Metric>
+      <Metric>Reposts: {data? data.map((row) => row.category==="repost"?1:0).reduce((a, b) => a + b, 0) : 0}</Metric>
+      <Metric>Replies: {data? data.map((row) => row.category==="reply"?1:0).reduce((a, b) => a + b, 0) : 0}</Metric>
       </Flex>
     </div>
   )

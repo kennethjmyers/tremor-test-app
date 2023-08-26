@@ -33,6 +33,7 @@ export default function PostTimeHeatMap(props: Props) {
       grid: true,
       x: {axis: "top", label: "Day of Week", domain: dayNames},
       y: {label: "Hour of Day"},
+      height: 480,
       color: {type: "linear", scheme: "Blues"},
       marks: [
         Plot.cell(

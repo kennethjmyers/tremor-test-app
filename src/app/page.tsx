@@ -6,6 +6,7 @@ import PostCalHeatMap from '../plots/postCalHeatMap';
 import PostTimeHeatMap from '../plots/postTimeHeatMap';
 import PostLinePlot from '../plots/postLinePlot';
 import PostMetrics from '../plots/postMetrics';
+import PostDonut from '../plots/postDonut';
 
 
 export default function Home() {
@@ -23,19 +24,21 @@ export default function Home() {
           <Card>
             <Title>{userName}</Title>
             <PostMetrics dataFile={dataFile} />
+            <PostDonut dataFile={dataFile} />
             <Card className="mt-4">
               <Flex >
                 <PostLinePlot dataFile={dataFile} />
               </Flex>
             </Card>
-            <Flex justifyContent="center" className="mt-4">
-              <PostCalHeatMap
-             dataFile={dataFile} startDate={startDate} monthsRange={monthsRange}/>
-            </Flex>
+            
           </Card>
         </Col>
         <Col numColSpan={1} numColSpanSm={2} numColSpanMd={2} numColSpanLg={2}>
           <Card>
+            <Flex justifyContent="center" className="mt-4">
+              <PostCalHeatMap
+             dataFile={dataFile} startDate={startDate} monthsRange={monthsRange}/>
+            </Flex>
             <Flex className='mt-4'>
               <PostTimeHeatMap dataFile={dataFile} />
             </Flex>
