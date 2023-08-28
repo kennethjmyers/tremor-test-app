@@ -1,7 +1,6 @@
 import { Card, Title, DonutChart } from "@tremor/react";
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import colors from 'tailwindcss/colors'
 
 
 const valueFormatter = (number: number) => `$ ${Intl.NumberFormat("us").format(number).toString()}`;
@@ -48,7 +47,9 @@ export default function PostDonut (props: Props) {
         category="count"
         index="category"
         // valueFormatter={valueFormatter}
-        colors={['cyan', 'blue', 'slate']}
+        // colors={['cyan', 'blue', 'slate']}
+        colors={['blue', 'blue', 'blue']}
+        shades={[100, 500, 900]}
       />
     </Card>
   )

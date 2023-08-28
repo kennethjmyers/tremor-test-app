@@ -2,18 +2,26 @@
 import React from 'react';
 // import process from 'process';
 import { Card, Text, Title, Metric, Flex, ProgressBar, Grid, Col } from "@tremor/react";
-import PostCalHeatMap from '../plots/postCalHeatMap';
-import PostTimeHeatMap from '../plots/postTimeHeatMap';
-import PostLinePlot from '../plots/postLinePlot';
-import PostMetrics from '../plots/postMetrics';
-import PostDonut from '../plots/postDonut';
+import PostCalHeatMap from '../plots/PostCalHeatMap';
+import PostTimeHeatMap from '../plots/PostTimeHeatMap';
+import PostLinePlot from '../plots/PostLinePlot';
+import PostMetrics from '../plots/PostMetrics';
+import PostDonut from '../plots/PostDonut';
 
+function dateDiffInDays(a: Date, b: Date): number {
+  const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+  // Discard the time and time-zone information.
+  const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+  const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+}
 
 export default function Home() {
   const userName: string = 'kennygesserit.bsky.social'
   const dataFile: string = '/data/post_history.csv'
-  const startDate: Date = new Date('2023-05-15')
-  const daysLookback: number = 90
+  const startDate: Date = new Date('2023-05-01')
+  const daysLookback: number = dateDiffInDays(startDate, new Date())
   const monthsRange: number = Math.floor(daysLookback/30)+1
 
   // JSX to render the component

@@ -9,8 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/tailwindcss": "^0.2.0",
     "@observablehq/plot": "^0.6.10",
-    "@tremor/react": "^3.6.1",
+    "@tremor/react": "file:../tremor",
     "@types/cal-heatmap": "^3.5.36",
     "@types/d3": "^7.4.0",
     "@types/node": "20.4.10",
