@@ -7,6 +7,7 @@ import PostTimeHeatMap from '../plots/PostTimeHeatMap';
 import PostLinePlot from '../plots/PostLinePlot';
 import PostMetrics from '../plots/PostMetrics';
 import PostDonut from '../plots/PostDonut';
+import FollowsActivityTable from '../tables/FollowsActivityTable';
 
 function dateDiffInDays(a: Date, b: Date): number {
   const _MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -19,7 +20,8 @@ function dateDiffInDays(a: Date, b: Date): number {
 
 export default function Home() {
   const userName: string = 'kennygesserit.bsky.social'
-  const dataFile: string = '/data/post_history.csv'
+  const userPostHistoryFile: string = '/data/post_history.csv'
+  const FollowsActivityFile: string = '/data/follows.csv'
   const startDate: Date = new Date('2023-05-01')
   const daysLookback: number = dateDiffInDays(startDate, new Date())
   const monthsRange: number = Math.floor(daysLookback/30)+1
@@ -27,34 +29,36 @@ export default function Home() {
   // JSX to render the component
   return (
     <div className="sm:p-10">
-      <Grid numItems={1} numItemsSm={2} numItemsMd={2} numItemsLg={4} className="gap-2">
-        <Col numColSpan={1} numColSpanSm={2} numColSpanMd={2} numColSpanLg={2} className="gap-2">
-          <Card>
+      <Card>
+        <Grid numItems={1} numItemsSm={2} numItemsMd={2} numItemsLg={4} className="gap-2">
+          <Col numColSpan={1} numColSpanSm={2} numColSpanMd={2} numColSpanLg={2} className="gap-2">
             <Title>{userName}</Title>
-            <PostMetrics dataFile={dataFile} />
-            <PostDonut dataFile={dataFile} />
-            <Card className="mt-4">
-              <Flex >
-                <PostLinePlot dataFile={dataFile} />
-              </Flex>
-            </Card>
-            
-          </Card>
-        </Col>
-        <Col numColSpan={1} numColSpanSm={2} numColSpanMd={2} numColSpanLg={2}>
-          <Card>
+            <PostMetrics dataFile={userPostHistoryFile} />
+            <PostDonut dataFile={userPostHistoryFile} />
+            <Flex className="mt-4">
+              <PostLinePlot dataFile={userPostHistoryFile} />
+            </Flex>
+          </Col>
+          <Col numColSpan={1} numColSpanSm={2} numColSpanMd={2} numColSpanLg={2}>
             <Flex justifyContent="center" className="mt-4">
               <PostCalHeatMap
-             dataFile={dataFile} startDate={startDate} monthsRange={monthsRange}/>
+            dataFile={userPostHistoryFile} startDate={startDate} monthsRange={monthsRange}/>
             </Flex>
             <Flex className='mt-4'>
-              <PostTimeHeatMap dataFile={dataFile} />
+              <PostTimeHeatMap dataFile={userPostHistoryFile} />
             </Flex>
-          </Card>
-        </Col>
-        {/* <Col numColSpan={1} numColSpanLg={1}>
-        </Col> */}
-      </Grid>
+          </Col>
+          {/* <Col numColSpan={1} numColSpanLg={1}>
+          </Col> */}
+        </Grid>
+      </Card>
+      <Card className='mt-4'>
+        <Grid numItems={1} numItemsSm={2} numItemsMd={2} numItemsLg={4} className="gap-2">
+          <Col numColSpan={4} numColSpanSm={2} numColSpanMd={2} numColSpanLg={4} className="gap-2">
+            <FollowsActivityTable dataFile={FollowsActivityFile}/>
+          </Col>
+        </Grid>
+      </Card>
     </div>
   );
   // return (

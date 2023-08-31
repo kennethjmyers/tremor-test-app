@@ -2,9 +2,6 @@ import { Card, Title, DonutChart } from "@tremor/react";
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
-
-const valueFormatter = (number: number) => `$ ${Intl.NumberFormat("us").format(number).toString()}`;
-
 type Props = {
   dataFile: string
 }
@@ -36,21 +33,20 @@ export default function PostDonut (props: Props) {
   }, [props.dataFile]);
 
   useEffect(() => {
-    console.log('here', data)
+    console.log('data updated: ', data)
   }, [data])
 
   return (
-    <Card >
+    <div >
       <DonutChart
         className="mt-6"
         data={data? data : []}
         category="count"
         index="category"
-        // valueFormatter={valueFormatter}
         // colors={['cyan', 'blue', 'slate']}
         colors={['blue', 'blue', 'blue']}
         shades={[100, 500, 900]}
       />
-    </Card>
+    </div>
   )
 };
