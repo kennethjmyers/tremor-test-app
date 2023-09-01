@@ -1,3 +1,5 @@
+// Originally I wrote the table using tremors built in tables
+// These looked nice but they did not offer virtualization and loaded all of the data
 import {
   Card,
   Table,
