@@ -31,7 +31,10 @@ export default function Home() {
           <Tab>Follows Data</Tab>
         </TabList>
         <TabPanels>
-        {/* <TabPanel>
+          <TabPanel>
+            <PostsCard userName={userName} userPostHistoryFile={userPostHistoryFile} startDate={startDate} monthsRange={monthsRange} />
+          </TabPanel>
+          <TabPanel>
             <Card className='mt-4'>
               <Grid numItems={1} numItemsSm={2} numItemsMd={2} numItemsLg={4} className="gap-2">
                 <Col numColSpan={4} numColSpanSm={2} numColSpanMd={2} numColSpanLg={4} className="gap-2">
@@ -39,11 +42,7 @@ export default function Home() {
                 </Col>
               </Grid>
             </Card>
-          </TabPanel> */}
-          <TabPanel>
-            <PostsCard userName={userName} userPostHistoryFile={userPostHistoryFile} startDate={startDate} monthsRange={monthsRange} />
           </TabPanel>
-          
         </TabPanels>
       </TabGroup>
     </div>

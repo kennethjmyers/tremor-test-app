@@ -24,6 +24,7 @@ import { useVirtual } from '@tanstack/react-virtual'
 import Image from 'next/image'
 import { StrictMode, useEffect, useRef, useState, useMemo, useReducer, useCallback } from 'react';
 import * as d3 from 'd3';
+import RenderIfVisible from 'react-render-if-visible';
 
 const queryClient = new QueryClient()
 
@@ -41,11 +42,16 @@ export default function FollowsActivityTable (props: Props) {
     console.log('data updated: ', data)
   }, [data])
 
+  const ESTIMATED_ITEM_HEIGHT = 1
+
   return (
     <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        { data ? <Example data={data} /> : <p>Loading...</p> }
-      </QueryClientProvider>
+      {/* the tremor tabs seem to work by setting height and width to 0 so this prevents rendering while not visible */}
+      <RenderIfVisible defaultHeight={ESTIMATED_ITEM_HEIGHT}>
+        <QueryClientProvider client={queryClient}>
+          { data ? <Example data={data} /> : <p>Loading...</p> }
+        </QueryClientProvider>
+      </RenderIfVisible>
     </StrictMode>
   )
 }
@@ -81,7 +87,6 @@ export function Example (props: {data:dataRow[]}) {
     size: number,
     sorting: SortingState
   ): dataRowApiResponse => {
-    // console.log('in fetch data', sorting, csvData)
     const dbData = [...csvData]
     if (sorting.length) {
       const sort = sorting[0] as ColumnSort
@@ -93,7 +98,6 @@ export function Example (props: {data:dataRow[]}) {
         return a[id] > b[id] ? 1 : -1
       })
     }
-    console.log('indexes:', start, start+size)
     return {
       data: dbData.slice(start, start + size),
       meta: {
@@ -173,7 +177,6 @@ export function Example (props: {data:dataRow[]}) {
   //called on scroll and possibly on mount to fetch more data as the user scrolls and reaches bottom of table
   const fetchMoreOnBottomReached = useCallback(
     (containerRefElement?: HTMLDivElement | null) => {
-      console.log(fetchNextPage, isFetching, totalFetched, totalDBRowCount)
       if (containerRefElement) {
         const { scrollHeight, scrollTop, clientHeight } = containerRefElement
         //once the user has scrolled within 300px of the bottom of the table, fetch more data if there is any
@@ -226,7 +229,8 @@ export function Example (props: {data:dataRow[]}) {
   }
 
   return (
-    <div className="p-2">
+    <div>
+      <div className="p-2 centering">
       <div className="h-2" />
       <div
         className="container"
@@ -307,6 +311,7 @@ export function Example (props: {data:dataRow[]}) {
       <div>
         <button onClick={() => rerender()}>Force Rerender</button>
       </div> */}
+      </div>
     </div>
   )
 }
