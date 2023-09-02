@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 // import process from 'process';
-import { Card, Grid, Col, TabGroup, TabList, Tab, TabPanels, TabPanel } from "@tremor/react";
+import { Card, Grid, Col, TabGroup, TabList, Tab, TabPanels, TabPanel, Metric, Flex } from "@tremor/react";
 import PostsCard from '../tabCards/PostsCard';
 import FollowsActivityTable from '../tables/FollowsActivityTable_tanstack';
 
@@ -37,6 +37,9 @@ export default function Home() {
           <TabPanel>
             <Card className='mt-4'>
               <Grid numItems={1} numItemsSm={2} numItemsMd={2} numItemsLg={4} className="gap-2">
+                {/* <Flex>
+                  <Metric>90% Follow Back</Metric>
+                </Flex> */}
                 <Col numColSpan={4} numColSpanSm={2} numColSpanMd={2} numColSpanLg={4} className="gap-2">
                   <FollowsActivityTable dataFile={FollowsActivityFile}/>
                 </Col>

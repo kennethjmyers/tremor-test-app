@@ -13,7 +13,8 @@ import {
   Row,
   SortingState,
   useReactTable,
-  ColumnSort
+  ColumnSort,
+  ColumnMeta
 } from '@tanstack/react-table'
 import {
   QueryClient,
@@ -25,6 +26,7 @@ import Image from 'next/image'
 import { StrictMode, useEffect, useRef, useState, useMemo, useReducer, useCallback } from 'react';
 import * as d3 from 'd3';
 import RenderIfVisible from 'react-render-if-visible';
+import { Badge } from '@tremor/react'
 
 const queryClient = new QueryClient()
 
@@ -67,7 +69,8 @@ type dataRow = {
   avatar: string,
   followedDt: string,
   lastPostUri: string,
-  lastPostDt: string
+  lastPostDt: string,
+  followsBack: string
 }
 
 export type dataRowApiResponse = {
@@ -123,6 +126,12 @@ export function Example (props: {data:dataRow[]}) {
       //   header: () => '',
       // },
       {
+        id: 'index',
+        cell: props => props?.table?.getSortedRowModel()?.flatRows?.indexOf(props?.row)+1,
+        header: () => <span></span>,
+        size:40
+      },
+      {
         accessorFn: row => row.displayName,
         id: 'displayName',
         cell: info => info.getValue(),
@@ -131,21 +140,32 @@ export function Example (props: {data:dataRow[]}) {
       {
         accessorFn: row => row.handle,
         id: 'handle',
-        cell: info => info.getValue(),
+        cell: info => (
+          <p style={{ fontWeight: 'bold' as FontWeight} }>
+            <a href={"https://bsky.app/profile/"+info.row.original.handle} target="_blank">{info.row.original.handle}</a>
+          </p>
+        ),
         header: () => <span>Handle</span>,
+        size: 200
       },
       {
         accessorFn: row => row.followedDt,
         id: 'followedDt',
-        cell: info => info.getValue(),
+        cell: info => <p style={{ textAlign: 'right' }}>{info.row.original.followedDt}</p>,
         header: () => <span>Followed Date</span>,
       },
       {
         accessorFn: row => row.lastPostDt,
         id: 'lastPostDt',
-        cell: info => info.getValue(),
+        cell: info => <p style={{ textAlign: 'right' }}>{info.row.original.lastPostDt}</p>,
         header: () => <span>Last Post Date</span>,
       },
+      {
+        accessorFn: row => row.followsBack,
+        id: 'followsBack',
+        cell: info => info.getValue()===1 ? <p style={{ textAlign: 'center' }}><Badge size="md">✔</Badge></p> : '',
+        header: () => <span>Follows Back</span>,
+      }
     ],
     []
   )
