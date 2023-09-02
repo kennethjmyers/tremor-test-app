@@ -2,7 +2,7 @@
 // import React from 'react'
 // import ReactDOM from 'react-dom/client'
 
-import './index.css'
+import './table.css'
 
 //3 TanStack Libraries!!!
 import {
@@ -14,7 +14,8 @@ import {
   SortingState,
   useReactTable,
   ColumnSort,
-  ColumnMeta
+  ColumnMeta,
+  CellContext
 } from '@tanstack/react-table'
 import {
   QueryClient,
@@ -27,6 +28,7 @@ import { StrictMode, useEffect, useRef, useState, useMemo, useReducer, useCallba
 import * as d3 from 'd3';
 import RenderIfVisible from 'react-render-if-visible';
 import { Badge } from '@tremor/react'
+import PostsModal from './PostsModal'
 
 const queryClient = new QueryClient()
 
@@ -51,7 +53,7 @@ export default function FollowsActivityTable (props: Props) {
       {/* the tremor tabs seem to work by setting height and width to 0 so this prevents rendering while not visible */}
       <RenderIfVisible defaultHeight={ESTIMATED_ITEM_HEIGHT}>
         <QueryClientProvider client={queryClient}>
-          { data ? <Example data={data} /> : <p>Loading...</p> }
+          { data ? <FollowsTable data={data} /> : <p>Loading...</p> }
         </QueryClientProvider>
       </RenderIfVisible>
     </StrictMode>
@@ -73,16 +75,21 @@ type dataRow = {
   followsBack: string
 }
 
-export type dataRowApiResponse = {
+type dataRowApiResponse = {
   data: dataRow[]
   meta: {
     totalRowCount: number
   }
 }
 
+export type ModalState = {
+  show: boolean
+  row: CellContext<dataRow, unknown> | undefined
+}
+
 const fetchSize = 25
 
-export function Example (props: {data:dataRow[]}) {
+export function FollowsTable (props: {data:dataRow[]}) {
   const csvData = props.data
 
   const fetchData = (
@@ -116,9 +123,13 @@ export function Example (props: {data:dataRow[]}) {
 
   const [sorting, setSorting] = useState<SortingState>([])
 
+  // need to keep track of if modal is shown or not, as well as the post data to pass
+  const [showPostModal, setShowPostModal] = useState<ModalState>( {show:false, row: undefined })
+
   const columns = useMemo<ColumnDef<dataRow>[]>(
-    () => [
-      // Avatars were crashing the server a lot
+    () => {
+      return [
+      // Avatars were crashing the server a lot and probably bad practice to hotlink so many images
       // {
       //   // accessorFn: row => row,
       //   id: 'avatar',
@@ -141,7 +152,7 @@ export function Example (props: {data:dataRow[]}) {
         accessorFn: row => row.handle,
         id: 'handle',
         cell: info => (
-          <p style={{ fontWeight: 'bold' as FontWeight} }>
+          <p style={{ fontWeight: 'bold'} as React.CSSProperties }>
             <a href={"https://bsky.app/profile/"+info.row.original.handle} target="_blank">{info.row.original.handle}</a>
           </p>
         ),
@@ -157,7 +168,7 @@ export function Example (props: {data:dataRow[]}) {
       {
         accessorFn: row => row.lastPostDt,
         id: 'lastPostDt',
-        cell: info => <p style={{ textAlign: 'right' }}>{info.row.original.lastPostDt}</p>,
+        cell: info => <div onClick={() => setShowPostModal({show:true, row: info})}><p style={{ textAlign: 'right', fontWeight: 'bold' } as React.CSSProperties}>{info.row.original.lastPostDt}</p></div>,
         header: () => <span>Last Post Date</span>,
       },
       {
@@ -166,9 +177,11 @@ export function Example (props: {data:dataRow[]}) {
         cell: info => info.getValue()===1 ? <p style={{ textAlign: 'center' }}><Badge size="md">✔</Badge></p> : '',
         header: () => <span>Follows Back</span>,
       }
-    ],
-    []
+    ]
+  },
+    [showPostModal]
   )
+  
 
   //react-query has an useInfiniteQuery hook just for this situation!
   const { data, fetchNextPage, isFetching, isLoading } =
@@ -332,6 +345,7 @@ export function Example (props: {data:dataRow[]}) {
         <button onClick={() => rerender()}>Force Rerender</button>
       </div> */}
       </div>
+      <PostsModal open={showPostModal} closeModal={() => setShowPostModal({show:false, row: undefined})}/>
     </div>
   )
 }

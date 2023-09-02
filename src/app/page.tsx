@@ -24,30 +24,33 @@ export default function Home() {
 
   // JSX to render the component
   return (
-    <div className="sm:p-10">
-      <TabGroup>
-        <TabList className="mt-8">
-          <Tab>Post Data</Tab>
-          <Tab>Follows Data</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            <PostsCard userName={userName} userPostHistoryFile={userPostHistoryFile} startDate={startDate} monthsRange={monthsRange} />
-          </TabPanel>
-          <TabPanel>
-            <Card className='mt-4'>
-              <Grid numItems={1} numItemsSm={2} numItemsMd={2} numItemsLg={4} className="gap-2">
-                {/* <Flex>
-                  <Metric>90% Follow Back</Metric>
-                </Flex> */}
-                <Col numColSpan={4} numColSpanSm={2} numColSpanMd={2} numColSpanLg={4} className="gap-2">
-                  <FollowsActivityTable dataFile={FollowsActivityFile}/>
-                </Col>
-              </Grid>
-            </Card>
-          </TabPanel>
-        </TabPanels>
-      </TabGroup>
-    </div>
+    <>
+      <div className="sm:p-10">
+        <TabGroup>
+          <TabList className="mt-8">
+            <Tab>Post Data</Tab>
+            <Tab>Follows Data</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <PostsCard userName={userName} userPostHistoryFile={userPostHistoryFile} startDate={startDate} monthsRange={monthsRange} />
+            </TabPanel>
+            <TabPanel>
+              <Card className='mt-4'>
+                <Grid numItems={1} numItemsSm={2} numItemsMd={2} numItemsLg={4} className="gap-2">
+                  {/* <Flex>
+                    <Metric>90% Follow Back</Metric>
+                  </Flex> */}
+                  <Col numColSpan={4} numColSpanSm={2} numColSpanMd={2} numColSpanLg={4} className="gap-2">
+                    <FollowsActivityTable dataFile={FollowsActivityFile}/>
+                  </Col>
+                </Grid>
+              </Card>
+            </TabPanel>
+          </TabPanels>
+        </TabGroup>
+      </div>
+      <div id='portal'></div>
+    </>
   );
 }

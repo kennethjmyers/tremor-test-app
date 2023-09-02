@@ -12,7 +12,7 @@ table {
 }
 
 thead {
-  background: lightgray; 
+  /* background: lightgray;  */
   margin: 0;
   position: sticky;
   top: 0;
