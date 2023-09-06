@@ -4,6 +4,7 @@ import React from 'react';
 import { Card, Grid, Col, TabGroup, TabList, Tab, TabPanels, TabPanel, Metric, Flex } from "@tremor/react";
 import PostsCard from '../tabCards/PostsCard';
 import FollowsActivityTable from '../tables/FollowsActivityTable_tanstack';
+import Acknowledgements from './acknowledgements/Acknowledgements';
 
 function dateDiffInDays(a: Date, b: Date): number {
   const _MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -30,6 +31,7 @@ export default function Home() {
           <TabList className="mt-8">
             <Tab>Post Data</Tab>
             <Tab>Follows Data</Tab>
+            <Tab>Acknowledgements</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -46,6 +48,9 @@ export default function Home() {
                   </Col>
                 </Grid>
               </Card>
+            </TabPanel>
+            <TabPanel>
+              <Acknowledgements />
             </TabPanel>
           </TabPanels>
         </TabGroup>

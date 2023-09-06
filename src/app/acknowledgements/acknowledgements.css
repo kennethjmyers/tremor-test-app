@@ -1,0 +1,7 @@
+.ack-li a:link {
+  text-decoration: underline;
+}
+
+.ack-li a:hover {
+  text-decoration: none;
+}

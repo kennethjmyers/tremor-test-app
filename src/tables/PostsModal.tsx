@@ -2,11 +2,6 @@ import React from 'react'
 import ReactDOM from "react-dom"
 import { ModalState } from './FollowsActivityTable_tanstack';
 
-type Props = {
-  open: ModalState,
-  closeModal: () => void
-}
-
 const MODAL_STYLES = {
   position: 'fixed',
   top: '50%',
@@ -19,15 +14,34 @@ const MODAL_STYLES = {
   borderColor: '#FFF'
 } as React.CSSProperties;
 
+const OVERLAY_STYLES = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  zIndex: 1000
+} as React.CSSProperties;
+
+type Props = {
+  open: ModalState,
+  closeModal: () => void
+}
+
 export default function PostsModal(props: Props) {
   if (!props.open.show) return null
+  const handle = props.open.row?.cell.row.original.handle
+  const content = props.open.row?.cell.row.original.lastPostContent
   return ReactDOM.createPortal(
-    <div style={MODAL_STYLES} className="bg-tremor-background dark:bg-dark-tremor-background">
-      PostsModal
-      <br></br>
-      <button onClick={props.closeModal}>Close Modal</button>
-    
-    </div>,
+    <>
+      <div style={OVERLAY_STYLES} onClick={props.closeModal} />
+      <div style={MODAL_STYLES} className="bg-tremor-background dark:bg-dark-tremor-background">
+        {handle}
+        <br></br>
+        {content}
+      </div>
+    </>,
     document.getElementById('portal')!
   )
 }

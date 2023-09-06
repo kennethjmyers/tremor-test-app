@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/tailwindcss": "^0.2.0",
+    "@heroicons/react": "^2.0.18",
     "@observablehq/plot": "^0.6.10",
     "@tanstack/react-query": "^4.33.0",
     "@tanstack/react-table": "^8.9.3",
@@ -20,6 +21,7 @@
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
+    "bsky-dash-data": "file:../get_data",
     "cal-heatmap": "^4.2.3",
     "d3": "^7.8.5",
     "eslint": "8.47.0",

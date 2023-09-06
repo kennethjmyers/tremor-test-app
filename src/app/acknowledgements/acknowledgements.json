@@ -1,0 +1,47 @@
+[
+  {
+    "name": "bluesky-social",
+    "link": "https://github.com/bluesky-social/atproto/tree/16662b220daefc90de7751158a999d7e67687ec9/packages/api",
+    "context": "Creators of Bluesky and its Javascript API."
+  },
+  {
+    "name": "joshlacal",
+    "link": "https://github.com/joshlacal",
+    "context": "Assistance with development"
+  },
+  {
+    "name": "brycefrank",
+    "link": "https://github.com/brycefrank",
+    "context": "Assistance with development"
+  },
+  {
+    "name": "aliceisjustplaying/atproto-starter-kit",
+    "link": "https://github.com/aliceisjustplaying/atproto-starter-kit",
+    "context": "Source tsconfig in this project"
+  },
+  {
+    "name": "tremorlabs/tremor",
+    "link": "https://github.com/tremorlabs/tremor",
+    "context": "Used to build out this site, the dashboards, and various plots (donut chart, metrics)"
+  },
+  {
+    "name": "d3/d3",
+    "link": "https://github.com/d3/d3",
+    "context": "Used in various components/plots"
+  },
+  {
+    "name": "observablehq/plot",
+    "link": "https://github.com/observablehq/plot",
+    "context": "Used in various plots (heatmap, area chart)"
+  },
+  {
+    "name": "wa0x6e/cal-heatmap",
+    "link": "https://github.com/wa0x6e/cal-heatmap",
+    "context": "Used in Calendar Heatmap"
+  },
+  {
+    "name": "TanStack Table",
+    "link": "https://tanstack.com/table/v8",
+    "context": "Used in Virtualized Infinite Scrolling Table"
+  }
+]

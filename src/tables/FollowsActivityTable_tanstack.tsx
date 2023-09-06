@@ -29,6 +29,7 @@ import * as d3 from 'd3';
 import RenderIfVisible from 'react-render-if-visible';
 import { Badge } from '@tremor/react'
 import PostsModal from './PostsModal'
+import { FollowsDataRow as dataRow } from 'bsky-dash-data'
 
 const queryClient = new QueryClient()
 
@@ -64,16 +65,16 @@ type Props = {
   dataFile: string
 }
 
-type dataRow = {
-  did: string,
-  handle: string,
-  displayName: string,
-  avatar: string,
-  followedDt: string,
-  lastPostUri: string,
-  lastPostDt: string,
-  followsBack: string
-}
+// type dataRow = {
+//   did: string,
+//   handle: string,
+//   displayName: string,
+//   avatar: string,
+//   followedDt: string,
+//   lastPostUri: string,
+//   lastPostDt: string,
+//   followsBack: string
+// }
 
 type dataRowApiResponse = {
   data: dataRow[]
@@ -174,14 +175,13 @@ export function FollowsTable (props: {data:dataRow[]}) {
       {
         accessorFn: row => row.followsBack,
         id: 'followsBack',
-        cell: info => info.getValue()===1 ? <p style={{ textAlign: 'center' }}><Badge size="md">✔</Badge></p> : '',
+        cell: info => info.getValue()===1 ? <div style={{ textAlign: 'center' }}><Badge size="md">✔</Badge></div> : '',
         header: () => <span>Follows Back</span>,
       }
     ]
   },
-    [showPostModal]
+    []
   )
-  
 
   //react-query has an useInfiniteQuery hook just for this situation!
   const { data, fetchNextPage, isFetching, isLoading } =
