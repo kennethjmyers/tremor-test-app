@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from "react-dom"
 import { ModalState } from './FollowsActivityTable_tanstack';
+import { HeartIcon, ChatBubbleBottomCenterIcon, ArrowPathRoundedSquareIcon} from '@heroicons/react/24/outline'
 
 const MODAL_STYLES = {
   position: 'fixed',
@@ -32,7 +33,10 @@ type Props = {
 export default function PostsModal(props: Props) {
   if (!props.open.show) return null
   const handle = props.open.row?.cell.row.original.handle
-  const content = props.open.row?.cell.row.original.lastPostContent
+  const content = props.open.row?.cell.row.original.lastPostContent 
+  const likes = props.open.row?.cell.row.original.lastPostLikes || '0'
+  const replies = props.open.row?.cell.row.original.lastPostLikes || '0'
+  const reposts = props.open.row?.cell.row.original.lastPostReposts || '0'
   return ReactDOM.createPortal(
     <>
       <div style={OVERLAY_STYLES} onClick={props.closeModal} />
@@ -40,6 +44,14 @@ export default function PostsModal(props: Props) {
         {handle}
         <br></br>
         {content}
+        <br></br>
+        <div style={{whiteSpace: 'pre-wrap'}}>
+          <HeartIcon className="h-5 w-5 inline"/>{likes}
+          {' '}{' '}
+          <ChatBubbleBottomCenterIcon className="h-5 w-5 inline"/>{replies}
+          {' '}{' '}
+          <ArrowPathRoundedSquareIcon className="h-5 w-5 inline"/>{reposts}
+        </div>
       </div>
     </>,
     document.getElementById('portal')!

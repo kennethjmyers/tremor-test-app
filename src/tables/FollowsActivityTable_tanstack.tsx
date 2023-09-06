@@ -30,6 +30,7 @@ import RenderIfVisible from 'react-render-if-visible';
 import { Badge } from '@tremor/react'
 import PostsModal from './PostsModal'
 import { FollowsDataRow as dataRow } from 'bsky-dash-data'
+import { ArrowTopRightOnSquareIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
 
 const queryClient = new QueryClient()
 
@@ -154,11 +155,11 @@ export function FollowsTable (props: {data:dataRow[]}) {
         id: 'handle',
         cell: info => (
           <p style={{ fontWeight: 'bold'} as React.CSSProperties }>
-            <a href={"https://bsky.app/profile/"+info.row.original.handle} target="_blank">{info.row.original.handle}</a>
+            <a href={"https://bsky.app/profile/"+info.row.original.handle} target="_blank">{info.row.original.handle} <ArrowTopRightOnSquareIcon className="h-4 w-4 inline" /></a>
           </p>
         ),
         header: () => <span>Handle</span>,
-        size: 200
+        size: 250
       },
       {
         accessorFn: row => row.followedDt,
@@ -169,7 +170,7 @@ export function FollowsTable (props: {data:dataRow[]}) {
       {
         accessorFn: row => row.lastPostDt,
         id: 'lastPostDt',
-        cell: info => <div onClick={() => setShowPostModal({show:true, row: info})}><p style={{ textAlign: 'right', fontWeight: 'bold' } as React.CSSProperties}>{info.row.original.lastPostDt}</p></div>,
+        cell: info => <div onClick={() => setShowPostModal({show:true, row: info})}><p style={{ textAlign: 'right', fontWeight: 'bold' } as React.CSSProperties}>{info.row.original.lastPostDt}<ArrowRightOnRectangleIcon className="h-4 w-4 inline" /></p></div>,
         header: () => <span>Last Post Date</span>,
       },
       {
